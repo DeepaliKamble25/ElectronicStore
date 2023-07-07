@@ -31,9 +31,9 @@ public class UserController {
      */
     @PostMapping("/save")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
-        logger.info("At Entering point this is the info for createUser level logger");
+        logger.info("Initiating request to createUser");
         UserDto userDto = this.userService.createUser(user);
-        logger.info("At Exist point this is the info for createUser level logger");
+        logger.info("Completing request to createUser");
         return new ResponseEntity<UserDto>(userDto, HttpStatus.CREATED);
 
     }
@@ -51,9 +51,9 @@ public class UserController {
     public ResponseEntity<UserDto> updateUser(
             @RequestBody UserDto userDto,
             @PathVariable String userId) {
-        logger.info("At Entering point this is the info for updateUser level logger" + userId);
+        logger.info("Initiating request to updateUser" + userId);
         UserDto updatedUser = this.userService.updateUser(userDto, userId);
-        logger.info("At Exist point this is the info for updateUser level logger" + userId);
+        logger.info("Completing request to updateUser" + userId);
         return new ResponseEntity<UserDto>(updatedUser, HttpStatus.OK);
     }
 //    delete
@@ -66,10 +66,10 @@ public class UserController {
      */
     @DeleteMapping("/{userId}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable String userId) {
-        logger.info("At Entering point this is the info for deleteUser level logger" + userId);
+        logger.info("Initiating request to deleteUser" + userId);
         this.userService.deleteUser(userId);
         ApiResponse message = ApiResponse.builder().message(ApiConstant.User_DELETED).success(true).status(HttpStatus.OK).build();
-        logger.info("At Exist point this is the info for deleteUser level logger" + userId);
+        logger.info("Completing request to deleteUser" + userId);
         return new ResponseEntity<ApiResponse>(message, HttpStatus.OK);
 
     }
@@ -83,9 +83,9 @@ public class UserController {
      */
     @GetMapping("/")
     public ResponseEntity<List<UserDto>> getAllUser() {
-        logger.info("At Entering point this is the info for getAllUser level logger");
+        logger.info("Initiating request to getAlluser");
         List<UserDto> allUser = this.userService.getAllUser();
-        logger.info("At Exist point this is the info for getAllUser level logger");
+        logger.info("Completing request to get All user");
         return new ResponseEntity<List<UserDto>>(allUser, HttpStatus.OK);
     }
 //    get by id
@@ -98,9 +98,9 @@ public class UserController {
      */
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable String userId) {
-        logger.info("At Entering point this is the info for getUserById level logger" + userId);
+        logger.info("Initiating request to deleteUser getUserById" + userId);
         UserDto updatedUser = this.userService.getUserById(userId);
-        logger.info("At Exist point this is the info for getUserById  level logger" + userId);
+        logger.info("Completing request to getUserById" + userId);
         return new ResponseEntity<UserDto>(updatedUser, HttpStatus.OK);
 
     }
@@ -115,9 +115,9 @@ public class UserController {
      */
     @GetMapping("/Email/{email}")
     public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
-        logger.info("At Entering point this is the info for getUserByEmail level logger" + email);
+        logger.info("Initiating request to getUserByEmail" + email);
         UserDto updatedUser = this.userService.getUserByEmail(email);
-        logger.info("At Exist point this is the info for getUserByEmail  level logger" + email);
+        logger.info("Completing request to getUserById getUserByEmail" + email);
         return new ResponseEntity<UserDto>(updatedUser, HttpStatus.OK);
 
     }
@@ -134,9 +134,9 @@ public class UserController {
 
     @GetMapping("/search/{keywords}")
     public ResponseEntity<List<UserDto>> searchUser(@PathVariable String keywords) {
-        logger.info("At Entering point this is the info for searchUser level logger" + keywords);
+        logger.info("Initiating request to searchUser" + keywords);
         List<UserDto> userDtos = this.userService.searchUser(keywords);
-        logger.info("At Exist point this is the info for getUserByEmail  level logger" + keywords);
+        logger.info("Completing request to searchUser" + keywords);
         return new ResponseEntity<List<UserDto>>(userDtos, HttpStatus.OK);
 
     }
