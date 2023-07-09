@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,7 @@ public class UserController {
      * @apiNote this is method to save User record in db
      */
     @PostMapping("/save")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user) {
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user) {
         logger.info("Initiating request to createUser");
         UserDto userDto = this.userService.createUser(user);
         logger.info("Completing request to createUser");
@@ -49,6 +50,7 @@ public class UserController {
      */
     @PutMapping("/update/{userId}")
     public ResponseEntity<UserDto> updateUser(
+            @Valid
             @RequestBody UserDto userDto,
             @PathVariable String userId) {
         logger.info("Initiating request to updateUser" + userId);
