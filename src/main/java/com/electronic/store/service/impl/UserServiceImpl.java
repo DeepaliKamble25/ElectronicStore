@@ -2,14 +2,20 @@ package com.electronic.store.service.impl;
 
 import com.electronic.store.dto.UserDto;
 import com.electronic.store.exception.UserNotFoundException;
+import com.electronic.store.helper.Helper;
 import com.electronic.store.model.User;
 import com.electronic.store.playload.ApiConstant;
+import com.electronic.store.playload.PageableResponse;
 import com.electronic.store.repository.UserRepository;
 import com.electronic.store.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,13 +68,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getAllUser() {
+    public PageableResponse<UserDto> getAllUser(int pageNumber, int pageSize, String sortBy, String sortDir) {
         logger.info("Initiating request to get AllUser");
-        List<User> users = this.userRepository.findAll();
-        List<UserDto> userDtos = users.stream().map(user -> this.modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
-        logger.info("Completing request to get AllUser");
+        Sort sort = (sortDir.equalsIgnoreCase("desc")) ? (Sort.by(sortBy).descending()) : (Sort.by(sortBy).ascending());
+       // Sort sort = Sort.by(sortBy);
+        //pageNumber default start from
+        Pageable pageable= PageRequest.of(pageNumber-1,pageSize,sort);
 
-        return userDtos;
+        Page<User> page = this.userRepository.findAll(pageable);
+
+        PageableResponse<UserDto> response = Helper.getPageableResponse(page, UserDto.class);
+
+        logger.info("Completing request to get AllUser");
+   return response;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.electronic.store.controller;
 import com.electronic.store.dto.UserDto;
 import com.electronic.store.playload.ApiConstant;
 import com.electronic.store.playload.ApiResponse;
+import com.electronic.store.playload.PageableResponse;
 import com.electronic.store.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,12 +84,18 @@ public class UserController {
      * @author Deepali Kamble
      * @apiNote to fetch All user record
      */
-    @GetMapping("/")
-    public ResponseEntity<List<UserDto>> getAllUser() {
+    @GetMapping("/getAll")
+    public ResponseEntity<PageableResponse<UserDto>> getAllUser
+    (
+            @RequestParam(value="pageNumber",defaultValue = "0",required = false) int pageNumber,
+            @RequestParam(value="pageSize",defaultValue= "10",required=false) int pageSize,
+            @RequestParam(value="sortBy",defaultValue = "name",required = false) String sortBy,
+            @RequestParam(value="sortDir",defaultValue= "asc",required=false) String sortDir
+    )
+    {
         logger.info("Initiating request to getAlluser");
-        List<UserDto> allUser = this.userService.getAllUser();
         logger.info("Completing request to get All user");
-        return new ResponseEntity<List<UserDto>>(allUser, HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.getAllUser(pageNumber, pageSize,sortBy,sortDir), HttpStatus.OK);
     }
 //    get by id
 
