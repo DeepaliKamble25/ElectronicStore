@@ -24,7 +24,7 @@ public class GlobalExceptiomHandler {
     public  Logger logger= LoggerFactory.getLogger(GlobalExceptiomHandler.class);
 
 
-    @ExceptionHandler
+    @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse> resourceNotFoundException(ResourceNotFoundException ex){
 
      logger.info("Exception  Handler  invoked");
@@ -34,7 +34,7 @@ public class GlobalExceptiomHandler {
 
 
    }
-    @ExceptionHandler
+    @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ApiResponse> userNotFoundException(UserNotFoundException ex){
 
         logger.info("User Exception  Handler  invoked");
@@ -58,6 +58,15 @@ public class GlobalExceptiomHandler {
         });
         return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(BadApiRequest.class)
+    public ResponseEntity<ApiResponse> badApiRequest(BadApiRequest ex){
+
+        logger.info("BadApiRequest Exception  Handler  invoked");
+        ApiResponse response = ApiResponse.builder().message(ex.getMessage()).status(HttpStatus.NOT_FOUND).success(false).build();
+
+        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND) ;
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ package com.electronic.store.service;
 import com.electronic.store.dto.UserDto;
 import com.electronic.store.playload.PageableResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public interface UserService {
 
 
     //delete
-    void deleteUser(String userId) ;
+    void deleteUser(String userId) throws IOException;
 
     //get all
     PageableResponse<UserDto> getAllUser(int pageNumber, int pageSize, String sortBy, String sortDir);

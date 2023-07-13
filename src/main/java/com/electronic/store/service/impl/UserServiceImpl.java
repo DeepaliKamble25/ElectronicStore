@@ -12,12 +12,18 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -26,6 +32,9 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private static Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
+
+    @Value("${user.profile.image.path}")
+    private String imagePath;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -52,7 +61,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userDto.getName());
         user.setAbout(userDto.getAbout());
         user.setImage(userDto.getImage());
-        user.setGender(userDto.getImage());
+        user.setGender(userDto.getGender());
         user.setEmail(userDto.getEmail());
         User updatedUser = this.userRepository.save(user);
         logger.info("Completing request to update user by findByid"+userId);
@@ -60,9 +69,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String userId) {
+    public void deleteUser(String userId)  {
         logger.info("Initiating request to deleteUser"+userId);
         User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(ApiConstant.User_Not_Found + userId));
+
+        String fullPath = imagePath + user.getImage();
+//   delete user profile image
+
+           try {
+               Path path = Paths.get(fullPath);
+               Files.delete(path);
+           } catch(NoSuchFileException ex)
+           {
+        logger.info("User image not found in folder ");
+
+        ex.printStackTrace();
+
+           }catch (IOException e)
+           {
+              e.printStackTrace();
+           }
         this.userRepository.delete(user);
         logger.info("Completing request to Deleted UserById "+userId);
     }
