@@ -15,4 +15,8 @@ public class ApiConstant {
 
     public static String Category_DELETED="Category Deleted Successfully !!!";
 
+    public static String PRODUCT_DELETED="Product Deleted Successfully !!!";
+
+    public static String PRODUCT_Not_Found="Product not found for given !!!";
+
 }
