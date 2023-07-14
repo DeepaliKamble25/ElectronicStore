@@ -125,9 +125,9 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable String userId) {
         logger.info("Initiating request to deleteUser getUserById" + userId);
-        UserDto updatedUser = this.userService.getUserById(userId);
+        UserDto getUser = this.userService.getUserById(userId);
         logger.info("Completing request to getUserById" + userId);
-        return new ResponseEntity<UserDto>(updatedUser, HttpStatus.OK);
+        return new ResponseEntity<UserDto>(getUser, HttpStatus.OK);
 
     }
 //    get by email
@@ -195,7 +195,7 @@ public class UserController {
      ) throws IOException
      {
          UserDto userDto = this.userService.getUserById(userId);
-         logger.info("User Image name : {} "+userDto.getImage());
+         logger.info("Initiate User serve UserImage : {} "+userId);
          InputStream resource = fileService.getResource(imageUploadPath, userDto.getImage());
 
          response.setContentType(MediaType.IMAGE_JPEG_VALUE);

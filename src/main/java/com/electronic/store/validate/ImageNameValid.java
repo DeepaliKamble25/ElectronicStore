@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 public @interface ImageNameValid {
 
 // default error message
-    String message() default "Invalide iage Name !!!";
+    String message() default "Invalide image Name !!!";
 
 //  represent group of constraints
     Class<?>[] groups() default { };

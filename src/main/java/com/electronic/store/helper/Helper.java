@@ -13,10 +13,10 @@ public class Helper {
 //U==entity V==Dto
     public static<U,V> PageableResponse<V> getPageableResponse(Page<U> page,Class<V> type){
         List<U> entity = page.getContent();
-        List<V> userDtos = entity.stream().map(object -> new ModelMapper().map(object, type)).collect(Collectors.toList());
+        List<V> classDtos = entity.stream().map(object -> new ModelMapper().map(object, type)).collect(Collectors.toList());
 
         PageableResponse pageableResponse=new PageableResponse();
-        pageableResponse.setContent(userDtos);
+        pageableResponse.setContent(classDtos);
         pageableResponse.setPageNumber(page.getNumber());
         pageableResponse.setPageSize(page.getSize());
         pageableResponse.setTotalElements(page.getTotalElements());

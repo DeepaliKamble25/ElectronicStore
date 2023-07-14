@@ -21,7 +21,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String uploadFile(MultipartFile file, String path) throws IOException {
-        logger.info("Initiating request to uploadFile" + file + "" + path);
+        logger.info("Initiating request to uploadFile" );
         String originalFilename = file.getOriginalFilename();
         logger.info("FileName  :{} " + originalFilename);
         String fileName = UUID.randomUUID().toString();
@@ -32,8 +32,7 @@ public class FileServiceImpl implements FileService {
         logger.info("full image path: {}" + fullPathWithFileName);
 
         if ((extension.equalsIgnoreCase(".png")) || extension.equalsIgnoreCase(".jpg") || extension.equalsIgnoreCase(".jpeg")) {
-             logger.info("file extension" +
-                     " is : {}"+extension);
+             logger.info("file extension is : {} " +extension);
             File folder = new File(path);
             if (!folder.exists()) {
 //                folder we are using multiple label then use mkdirs***

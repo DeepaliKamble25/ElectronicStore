@@ -10,4 +10,9 @@ public class ApiConstant {
     public static String Bad_ApiRequest2="not allowed !!!";
 
     public static String FILE_NOT_FOUND_EXP="File not  found !!!";
+
+    public static String Resource_Not_Found_Exception="Resource not found exception !!!";
+
+    public static String Category_DELETED="Category Deleted Successfully !!!";
+
 }
