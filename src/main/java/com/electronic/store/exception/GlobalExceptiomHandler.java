@@ -24,20 +24,8 @@ public class GlobalExceptiomHandler {
     public  Logger logger= LoggerFactory.getLogger(GlobalExceptiomHandler.class);
 //MethodArgumentNotValidException
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String,String>>  methodArgumentNotValidException(MethodArgumentNotValidException ex){
-        Map<String,String> errors=new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach(result->
-                errors.put(result.getObjectName(),result.getDefaultMessage()));
-        logger.info("  MethodArgumentNotValidException invoked");
 
 
-       // ApiResponse response = ApiResponse.builder().message(ex.getMessage()).status(HttpStatus.NOT_FOUND).success(true).build();
-
-        return new ResponseEntity<>(errors,HttpStatus.NOT_FOUND) ;
-
-
-    }
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse> resourceNotFoundException(ResourceNotFoundException ex){
 

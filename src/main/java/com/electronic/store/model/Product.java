@@ -3,10 +3,7 @@ package com.electronic.store.model;
 import lombok.*;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -32,6 +29,11 @@ public class Product {
     private boolean live;
     private boolean stock;
 
+
+    private String productImageName;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_product_Id")
+    private Category category;
 
 
 

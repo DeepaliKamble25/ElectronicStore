@@ -184,7 +184,7 @@ public class UserController {
 
         UserDto updateduserDto = userService.updateUser(userDto, userId);
 
-        ImageResponse imageResponse = ImageResponse.builder().imageName(imageName).success(true).status(HttpStatus.CREATED).build();
+        ImageResponse imageResponse = ImageResponse.builder().imageName(imageName).message(ApiConstant.User_Image_Name).success(true).status(HttpStatus.CREATED).build();
 
         return new ResponseEntity<>(imageResponse, HttpStatus.CREATED);
     };

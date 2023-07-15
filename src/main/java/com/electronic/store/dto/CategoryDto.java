@@ -1,11 +1,15 @@
 package com.electronic.store.dto;
 
+import com.electronic.store.model.Product;
 import com.electronic.store.validate.CoverImageValid;
 import lombok.*;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,6 +28,8 @@ public class CategoryDto {
 
     @CoverImageValid
     private String coverImage;
+
+   // private List<ProductDto> productDtos=new ArrayList<>();
 
 
 }

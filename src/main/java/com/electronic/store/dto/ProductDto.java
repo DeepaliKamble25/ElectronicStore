@@ -1,5 +1,6 @@
 package com.electronic.store.dto;
 
+import com.electronic.store.model.Category;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -35,4 +36,8 @@ public class ProductDto {
     private boolean live;
 
     private boolean stock;
+
+    private String productImageName;
+
+    private CategoryDto category;
 }
