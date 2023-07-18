@@ -28,8 +28,8 @@ public class Category {
     @Column(name="category_cover_Image_name")
     private String coverImage;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private List<Product> product=new ArrayList<>();
+//    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    private List<Product> product=new ArrayList<>();
 
 
 

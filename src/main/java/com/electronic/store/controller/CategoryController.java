@@ -40,9 +40,10 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * @author Deepali
+     * @author Deepali kamble
+     * @apiNote create categoryDto
      * @param categoryDto
-     * @return
+     * @return categoryDto
      */
 
     //create
@@ -56,6 +57,13 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDto1, HttpStatus.CREATED);
     }
 
+    /**
+     * @author Deepali Kamble
+     * @apiNote update categoryDto
+     * @param categoryDto
+     * @param categoryId
+     * @return categoryDto
+     */
     //update
     @PutMapping("/updated/{categoryId}")
     public ResponseEntity<CategoryDto> updateCategoryDto(@Valid @RequestBody CategoryDto categoryDto, @PathVariable String categoryId) {
@@ -67,6 +75,12 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDto1, HttpStatus.CREATED);
     }
 
+    /**
+     * @author Deepali Kamble
+     * @apiNote deleteCategory
+     * @param categoryId
+     * @return void
+     */
     //delete
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<ApiResponse> deleteCategory(@PathVariable String categoryId) {
@@ -79,6 +93,15 @@ public class CategoryController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+    /**
+     * @author Deepali kamble
+     * @apiNote get all categoryDto list
+     * @param pageNumber
+     * @param pageSize
+     * @param sortBy
+     * @param sortDir
+     * @return getall data categoryDto
+     */
     //getall
     @GetMapping("/getall")
     public ResponseEntity<PageableResponse<CategoryDto>> getallCategoryDto(
@@ -92,7 +115,12 @@ public class CategoryController {
 
     }
 
-    ;
+    /**
+     * @author Deepali Kamble
+     * @apiNote get single  categoryDto
+     * @param categoryId
+     * @return categoryDto
+     */
 
     //getByid
     @GetMapping("/getcategory/{categoryId}")
@@ -103,6 +131,12 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDto, HttpStatus.OK);
     }
 
+    /**
+     * @authot Deepali kamble
+     * @apiNote search categoryDto By title keywords
+     * @param keywords
+     * @return CategoryDto with keywords
+     */
     //getKeywords
     @GetMapping("/{keywords}")
     public ResponseEntity<List<CategoryDto>> searchCategoriesByTitle(@PathVariable String keywords) {
@@ -114,6 +148,15 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
 
     }
+
+    /**
+     * @author Deepali Kamble
+     * @apiNote upload coverImage
+     * @param coverImage
+     * @param categoryId
+     * @return image
+     * @throws IOException
+     */
 
     //upload coverImage
     @PostMapping("/coverimage/{categoryId}")
@@ -130,12 +173,19 @@ public class CategoryController {
 
         CategoryDto updateCategoryDto = this.categoryService.updateCategoryDto(categoryDto, categoryId);
 
-        CoverImageResponse coverImageResponse = CoverImageResponse.builder().coverImageName(coverImage1).success(true).status(HttpStatus.OK).build();
+        CoverImageResponse coverImageResponse = CoverImageResponse.builder().message(ApiConstant.COVER_IMAGE_UPLOADED).coverImageName(coverImage1).success(true).status(HttpStatus.OK).build();
         logger.info("Completing request  to uploadCoverImage: {}" + categoryId);
         return new ResponseEntity<>(coverImageResponse, HttpStatus.OK);
 
     }
 
+    /**
+     * @author Deepali Kamble
+     * @apiNote serve coverImage
+     * @param categoryId
+     * @param response
+     * @throws IOException
+     */
     //    servecoverImage
     @GetMapping("/serveimage/{categoryId}")
     public void serveCoverImage(
@@ -151,6 +201,14 @@ public class CategoryController {
         logger.info("Completing request  to serveCoverImage: {}" + categoryId);
 
     }
+
+    /**
+     * @author Deepali Kamble
+     * @apiNote createProductDto with category
+     * @param categoryId
+     * @param productDto
+     * @return product with categoryDto
+     */
     //http:localhost:9090/categories/{categoryId}/products
     //create category with product
     @PostMapping("/{categoryId}/products")
@@ -166,6 +224,14 @@ public class CategoryController {
         return new ResponseEntity<>(savedWithCategory,HttpStatus.CREATED);
 
     }
+
+    /**
+     * @author Deepali Kamble
+     * @apiNote update Category in product
+     * @param categoryId
+     * @param productId
+     * @return product with CategoryDto
+     */
     //update category of product
     @PutMapping("/{categoryId}/products/{productId}")
     public ResponseEntity<ProductDto> updateCategoryInProduct(
@@ -178,6 +244,17 @@ public class CategoryController {
         logger.info("Completing request  to updateCategoryInProduct: {}" + categoryId  +productId);
         return  new ResponseEntity<>(updateCategory,HttpStatus.OK);
     };
+
+    /**
+     * @author Deepali kamble
+     * @apiNote gat all product eith category
+     * @param categoryId
+     * @param pageNumber
+     * @param pageSize
+     * @param sortBy
+     * @param sortDir
+     * @return get ProductDto with Category
+     */
 
     @GetMapping("/getproducts/{categoryId}")
     public ResponseEntity<PageableResponse<ProductDto>>getAllProductwithCategories(

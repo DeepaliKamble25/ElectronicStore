@@ -22,5 +22,5 @@ public class ApiConstant {
     public static String User_Image_Name="User image name is saved succefully !!!";
 
     public static String CSTEGORY_NOT_FOUND="Category not found  !!!";
-
+    public static String COVER_IMAGE_UPLOADED="Cover Image uploaded successfully  !!!";
 }
