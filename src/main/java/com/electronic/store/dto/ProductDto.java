@@ -1,6 +1,8 @@
 package com.electronic.store.dto;
 
 import com.electronic.store.model.Category;
+import com.electronic.store.validate.ImageNameValid;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -30,13 +32,13 @@ public class ProductDto {
 
 
     private int discountedPrice;
-
+   // @JsonFormat(pattern = "dd-MM-yyyy")
     private Date addeddate;
 
     private boolean live;
 
     private boolean stock;
-
+    @ImageNameValid
     private String productImageName;
 
     private CategoryDto category;

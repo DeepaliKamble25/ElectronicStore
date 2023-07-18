@@ -18,15 +18,23 @@ public class Product {
 
     @Id
     private  String productId;
-
+    @Column(name="title")
     private String title;
     @Column(length=1000)
     private String description;
+
+    @Column(name="price")
     private int price;
+    @Column(name="Discount_Price")
     private int discountedPrice;
+    @Column(name="quantity")
     private int quantity;
+    @Column(name="Date")
     private Date addeddate;
+
+    @Column(name = "live")
     private boolean live;
+    @Column(name = "Stock")
     private boolean stock;
 
 

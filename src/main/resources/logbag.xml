@@ -18,7 +18,7 @@
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>app_%d{dd-MM-yyyy}.log</fileNamePattern>
-            <maxHistory>20</maxHistory>
+            <maxHistory>12</maxHistory>
             <totalSizeCap>10KB</totalSizeCap>
         </rollingPolicy>
     </appender>
@@ -28,7 +28,8 @@
         <appender-ref ref="RollingAppender"></appender-ref>
     </logger>
     <!-- Logging spring boot package -->
-    <logger name="org.springframework.boot" level="info" additivity="false">
+    <logger name="org.springframework.boot" level="info"
+            additivity="false">
         <appender-ref ref="ConsoleAppender"></appender-ref>
         <appender-ref ref="RollingAppender"></appender-ref>
     </logger>
