@@ -44,19 +44,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         //generate userId in String format
-        logger.info("Initiating request to saveUser");
+        logger.info("Initiating request to saveUser: {}");
         String userId = UUID.randomUUID().toString();
         userDto.setUserId(userId);
         User user = this.modelMapper.map(userDto, User.class);
 //        user.setUserId(userId);
         User saveUser = userRepository.save(user);
-        logger.info("Completing request to saved");
+        logger.info("Completing request to saved: {}");
         return this.modelMapper.map(saveUser, UserDto.class);
     }
 
     @Override
     public UserDto updateUser(UserDto userDto, String userId) {
-        logger.info("Initiating request to updateUser by findById method"+userId);
+        logger.info("Initiating request to updateUser by findById method: {}"+userId);
         User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(ApiConstant.User_Not_Found + userId));
         user.setName(userDto.getName());
         user.setAbout(userDto.getAbout());
@@ -64,13 +64,13 @@ public class UserServiceImpl implements UserService {
         user.setGender(userDto.getGender());
         user.setEmail(userDto.getEmail());
         User updatedUser = this.userRepository.save(user);
-        logger.info("Completing request to update user by findByid"+userId);
+        logger.info("Completing request to update user by findByid: {}"+userId);
         return  this.modelMapper.map(updatedUser, UserDto.class);
     }
 
     @Override
     public void deleteUser(String userId)  {
-        logger.info("Initiating request to deleteUser"+userId);
+        logger.info("Initiating request to deleteUser: {}"+userId);
         User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(ApiConstant.User_Not_Found + userId));
 
         String fullPath = imagePath + user.getImage();
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
                Files.delete(path);
            } catch(NoSuchFileException ex)
            {
-        logger.info("User image not found in folder ");
+        logger.info("User image not found in folder: {}");
 
         ex.printStackTrace();
 
@@ -90,12 +90,12 @@ public class UserServiceImpl implements UserService {
               e.printStackTrace();
            }
         this.userRepository.delete(user);
-        logger.info("Completing request to Deleted UserById "+userId);
+        logger.info("Completing request to Deleted UserById: {} "+userId);
     }
 
     @Override
     public PageableResponse<UserDto> getAllUser(int pageNumber, int pageSize, String sortBy, String sortDir) {
-        logger.info("Initiating request to get AllUser");
+        logger.info("Initiating request to get AllUser: {}");
         Sort sort = (sortDir.equalsIgnoreCase("desc")) ? (Sort.by(sortBy).descending()) : (Sort.by(sortBy).ascending());
        // Sort sort = Sort.by(sortBy);
         //pageNumber default start from
@@ -105,13 +105,13 @@ public class UserServiceImpl implements UserService {
 
         PageableResponse<UserDto> response = Helper.getPageableResponse(page, UserDto.class);
 
-        logger.info("Completing request to get AllUser");
+        logger.info("Completing request to get AllUser: {}");
    return response;
     }
 
     @Override
     public UserDto getUserById(String userId) {
-        logger.info("Initiating request to get AllUser find UserById "+userId);
+        logger.info("Initiating request to get AllUser find UserById:{}"+userId);
         User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(ApiConstant.User_Not_Found + userId));
         logger.info("Completing request to get UserById"+userId);
 
@@ -119,17 +119,17 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public UserDto getUserByEmail(String email) {
-        logger.info("Initiating request to find UserByEmail"+email);
+        logger.info("Initiating request to find UserByEmail :{}"+email);
         User user = this.userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(ApiConstant.User_Not_Found + email));
         logger.info("Completing request to find UserByEmail"+email);
         return this.modelMapper.map(user,UserDto.class);
     }
     @Override
     public List<UserDto> searchUser(String keywords) {
-        logger.info("Initiating request to searchUser"+keywords);
+        logger.info("Initiating request to searchUser: {}"+keywords);
         List<User> users = this.userRepository.findByNameContaining(keywords);
         List<UserDto> userDtos = users.stream().map(user -> this.modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
-        logger.info("Completing request to searchUser"+keywords);
+        logger.info("Completing request to searchUser: {}"+keywords);
         return userDtos;
     }
 
