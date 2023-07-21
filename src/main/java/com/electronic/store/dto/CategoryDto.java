@@ -29,7 +29,7 @@ public class CategoryDto {
     @CoverImageValid
     private String coverImage;
 
-   // private List<ProductDto> productDtos=new ArrayList<>();
+    private List<ProductDto> productDtos=new ArrayList<>();
 
 
 }
