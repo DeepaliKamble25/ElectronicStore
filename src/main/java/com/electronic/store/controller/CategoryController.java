@@ -40,10 +40,10 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * @author Deepali kamble
-     * @apiNote create categoryDto
      * @param categoryDto
      * @return categoryDto
+     * @author Deepali kamble
+     * @apiNote create categoryDto
      */
 
     //create
@@ -58,11 +58,11 @@ public class CategoryController {
     }
 
     /**
-     * @author Deepali Kamble
-     * @apiNote update categoryDto
      * @param categoryDto
      * @param categoryId
      * @return categoryDto
+     * @author Deepali Kamble
+     * @apiNote update categoryDto
      */
     //update
     @PutMapping("/updated/{categoryId}")
@@ -76,10 +76,10 @@ public class CategoryController {
     }
 
     /**
-     * @author Deepali Kamble
-     * @apiNote deleteCategory
      * @param categoryId
      * @return void
+     * @author Deepali Kamble
+     * @apiNote deleteCategory
      */
     //delete
     @DeleteMapping("/{categoryId}")
@@ -94,13 +94,13 @@ public class CategoryController {
     }
 
     /**
-     * @author Deepali kamble
-     * @apiNote get all categoryDto list
      * @param pageNumber
      * @param pageSize
      * @param sortBy
      * @param sortDir
      * @return getall data categoryDto
+     * @author Deepali kamble
+     * @apiNote get all categoryDto list
      */
     //getall
     @GetMapping("/getall")
@@ -116,10 +116,10 @@ public class CategoryController {
     }
 
     /**
-     * @author Deepali Kamble
-     * @apiNote get single  categoryDto
      * @param categoryId
      * @return categoryDto
+     * @author Deepali Kamble
+     * @apiNote get single  categoryDto
      */
 
     //getByid
@@ -132,10 +132,10 @@ public class CategoryController {
     }
 
     /**
-     * @authot Deepali kamble
-     * @apiNote search categoryDto By title keywords
      * @param keywords
      * @return CategoryDto with keywords
+     * @authot Deepali kamble
+     * @apiNote search categoryDto By title keywords
      */
     //getKeywords
     @GetMapping("/{keywords}")
@@ -150,12 +150,12 @@ public class CategoryController {
     }
 
     /**
-     * @author Deepali Kamble
-     * @apiNote upload coverImage
      * @param coverImage
      * @param categoryId
      * @return image
      * @throws IOException
+     * @author Deepali Kamble
+     * @apiNote upload coverImage
      */
 
     //upload coverImage
@@ -180,11 +180,11 @@ public class CategoryController {
     }
 
     /**
-     * @author Deepali Kamble
-     * @apiNote serve coverImage
      * @param categoryId
      * @param response
      * @throws IOException
+     * @author Deepali Kamble
+     * @apiNote serve coverImage
      */
     //    servecoverImage
     @GetMapping("/serveimage/{categoryId}")
@@ -203,34 +203,34 @@ public class CategoryController {
     }
 
     /**
-     * @author Deepali Kamble
-     * @apiNote createProductDto with category
      * @param categoryId
      * @param productDto
      * @return product with categoryDto
+     * @author Deepali Kamble
+     * @apiNote createProductDto with category
      */
     //http:localhost:9090/categories/{categoryId}/products
     //create category with product
     @PostMapping("/{categoryId}/products")
     public ResponseEntity<ProductDto> createProductDtowithCategory(
             @PathVariable String categoryId,
-           @Valid @RequestBody ProductDto productDto
+            @Valid @RequestBody ProductDto productDto
     ) {
         logger.info("Initiating request to createProductDtowithCategory: {}" + categoryId);
 
         ProductDto savedWithCategory = productService.createWithCategory(productDto, categoryId);
         logger.info("Completing request  to createProductDtowithCategory: {}" + categoryId);
 
-        return new ResponseEntity<>(savedWithCategory,HttpStatus.CREATED);
+        return new ResponseEntity<>(savedWithCategory, HttpStatus.CREATED);
 
     }
 
     /**
-     * @author Deepali Kamble
-     * @apiNote update Category in product
      * @param categoryId
      * @param productId
      * @return product with CategoryDto
+     * @author Deepali Kamble
+     * @apiNote update Category in product
      */
     //update category of product
     @PutMapping("/{categoryId}/products/{productId}")
@@ -238,35 +238,37 @@ public class CategoryController {
             @PathVariable String categoryId,
             @PathVariable String productId
 
-    ){
-        logger.info("Initiating request to updateCategoryInProduct: {}" + categoryId +productId);
-        ProductDto updateCategory = this.productService.updatewithCategory( productId,categoryId);
-        logger.info("Completing request  to updateCategoryInProduct: {}" + categoryId  +productId);
-        return  new ResponseEntity<>(updateCategory,HttpStatus.OK);
-    };
+    ) {
+        logger.info("Initiating request to updateCategoryInProduct: {}" + categoryId + productId);
+        ProductDto updateCategory = this.productService.updatewithCategory(productId, categoryId);
+        logger.info("Completing request  to updateCategoryInProduct: {}" + categoryId + productId);
+        return new ResponseEntity<>(updateCategory, HttpStatus.OK);
+    }
+
+    ;
 
     /**
-     * @author Deepali kamble
-     * @apiNote gat all product eith category
      * @param categoryId
      * @param pageNumber
      * @param pageSize
      * @param sortBy
      * @param sortDir
      * @return get ProductDto with Category
+     * @author Deepali kamble
+     * @apiNote gat all product eith category
      */
 
     @GetMapping("/getproducts/{categoryId}")
-    public ResponseEntity<PageableResponse<ProductDto>>getAllProductwithCategories(
+    public ResponseEntity<PageableResponse<ProductDto>> getAllProductwithCategories(
             @PathVariable String categoryId,
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = "title", required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
-    ){
-        logger.info("Initiating request to getAllProductwithCategories: {}" + categoryId +categoryId);
+    ) {
+        logger.info("Initiating request to getAllProductwithCategories: {}" + categoryId + categoryId);
         PageableResponse<ProductDto> getallCategories = this.productService.getallCategories(categoryId, pageNumber, pageSize, sortBy, sortDir);
-        return new ResponseEntity<>(getallCategories,HttpStatus.OK);
+        return new ResponseEntity<>(getallCategories, HttpStatus.OK);
 
     }
 }
