@@ -32,7 +32,7 @@ public class ProductDto {
 
 
     private int discountedPrice;
-   // @JsonFormat(pattern = "dd-MM-yyyy")
+
     private Date addeddate;
 
     private boolean live;
