@@ -13,6 +13,10 @@ public class ApiConstant {
 
     public static String Resource_Not_Found_Exception="Resource not found exception !!!";
 
+
+
+
+
     public static String Category_DELETED="Category Deleted Successfully !!!";
 
     public static String PRODUCT_DELETED="Product Deleted Successfully !!!";
