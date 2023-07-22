@@ -29,7 +29,7 @@ public class GlobalExceptiomHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse> resourceNotFoundException(ResourceNotFoundException ex){
 
-     logger.info("Exception  Handler  invoked");
+     logger.info("ResourceNotFoundException  Handler  invoked");
        ApiResponse response = ApiResponse.builder().message(ex.getMessage()).status(HttpStatus.NOT_FOUND).success(true).build();
 
        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND) ;
@@ -50,7 +50,7 @@ public class GlobalExceptiomHandler {
 //    MethodArgumentNotValidException
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,Object>> handleMethodeArgumentNotValidException(MethodArgumentNotValidException ex){
-
+        logger.info("MethodArgumentNotValidException  Handler  invoked");
         List<ObjectError> allErrors = ex.getBindingResult().getAllErrors();
         Map<String,Object> response=new HashMap<>();
         allErrors.stream().forEach(objectError ->
