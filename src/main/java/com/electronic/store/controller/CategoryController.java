@@ -40,67 +40,70 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * @param categoryDto
-     * @return categoryDto
+
      * @author Deepali kamble
      * @apiNote create categoryDto
+     * @param categoryDto
+     * @return categoryDto
      */
 
     //create
     @PostMapping("/save")
     public ResponseEntity<CategoryDto> createCategoryDto(@Valid @RequestBody CategoryDto categoryDto) {
-        logger.info("Initiating request to save CategoryDto : {}");
+        logger.info("Initiating request to save CategoryDto ");
 
         CategoryDto categoryDto1 = this.categoryService.createCategoryDto(categoryDto);
-        logger.info("Completing request to save CategoryDto : {}");
+        logger.info("Completing request to save CategoryDto ");
 
         return new ResponseEntity<>(categoryDto1, HttpStatus.CREATED);
     }
 
     /**
+     * @author Deepali Kamble
+     * @apiNote update categoryDto
      * @param categoryDto
      * @param categoryId
      * @return categoryDto
-     * @author Deepali Kamble
-     * @apiNote update categoryDto
      */
     //update
     @PutMapping("/updated/{categoryId}")
     public ResponseEntity<CategoryDto> updateCategoryDto(@Valid @RequestBody CategoryDto categoryDto, @PathVariable String categoryId) {
-        logger.info("Initiating request to update  CategoryDto : {}" + categoryId);
+        logger.info("Initiating request to update  CategoryDto : {}" , categoryId);
 
         CategoryDto categoryDto1 = this.categoryService.updateCategoryDto(categoryDto, categoryId);
-        logger.info("Completing request to update CategoryDto : {}" + categoryId);
+        logger.info("Completing request to update CategoryDto : {}" , categoryId);
 
         return new ResponseEntity<>(categoryDto1, HttpStatus.CREATED);
     }
 
     /**
-     * @param categoryId
-     * @return void
+
      * @author Deepali Kamble
      * @apiNote deleteCategory
+     * @param categoryId
+     * @return void
      */
     //delete
     @DeleteMapping("/{categoryId}")
     public ResponseEntity<ApiResponse> deleteCategory(@PathVariable String categoryId) {
-        logger.info("Initiating request to delete CategoryDto : {}" + categoryId);
+        logger.info("Initiating request to delete CategoryDto : {}" , categoryId);
 
         this.categoryService.deleteCategoryDto(categoryId);
         ApiResponse apiResponse = ApiResponse.builder().message(ApiConstant.Category_DELETED).success(true).status(HttpStatus.OK).build();
-        logger.info("Completing request to delete CategoryDto : {}" + categoryId);
+        logger.info("Completing request to delete CategoryDto : {}" , categoryId);
 
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
     /**
+     * @author Deepali kamble
+     * @apiNote get all categoryDto list
      * @param pageNumber
      * @param pageSize
      * @param sortBy
      * @param sortDir
      * @return getall data categoryDto
-     * @author Deepali kamble
-     * @apiNote get all categoryDto list
+     *
      */
     //getall
     @GetMapping("/getall")
@@ -110,46 +113,50 @@ public class CategoryController {
             @RequestParam(value = "sortBy", defaultValue = "title", required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
     ) {
-        logger.info("Initiating request to getAllcategories: {} ");
+        logger.info("Initiating request to getAllcategories ");
         return new ResponseEntity<>(this.categoryService.getAllCategories(pageNumber, pageSize, sortBy, sortDir), HttpStatus.OK);
 
     }
 
     /**
-     * @param categoryId
-     * @return categoryDto
      * @author Deepali Kamble
      * @apiNote get single  categoryDto
+     * @param categoryId
+     * @return categoryDto
+
      */
 
     //getByid
     @GetMapping("/getcategory/{categoryId}")
     public ResponseEntity<CategoryDto> getCategoryDtoById(@PathVariable String categoryId) {
-        logger.info("Initiating request to getCategoryDtoById : {}" + categoryId);
+        logger.info("Initiating request to getCategoryDtoById : {}", categoryId);
         CategoryDto categoryDto = this.categoryService.getCategoryDtoById(categoryId);
-        logger.info("Completing request to getCategoryDtoById : {}" + categoryId);
+        logger.info("Completing request to getCategoryDtoById : {}" , categoryId);
         return new ResponseEntity<>(categoryDto, HttpStatus.OK);
     }
 
     /**
-     * @param keywords
-     * @return CategoryDto with keywords
      * @authot Deepali kamble
      * @apiNote search categoryDto By title keywords
+     * @param keywords
+     * @return CategoryDto with keywords
+
      */
     //getKeywords
     @GetMapping("/{keywords}")
     public ResponseEntity<List<CategoryDto>> searchCategoriesByTitle(@PathVariable String keywords) {
-        logger.info("Initiating request to searchCategoriesByTitle: {}" + keywords);
+        logger.info("Initiating request to searchCategoriesByTitle: {}" , keywords);
 
         List<CategoryDto> categoryDtos = this.categoryService.searchByCategoryId(keywords);
-        logger.info("Completing request to searchCategoriesByTitle: {}" + keywords);
+        logger.info("Completing request to searchCategoriesByTitle: {}" , keywords);
 
         return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
 
     }
 
     /**
+     * @author Deepali Kamble
+     * @apiNote upload coverImage
      * @param coverImage
      * @param categoryId
      * @return image
@@ -164,7 +171,7 @@ public class CategoryController {
             @RequestParam("coverImage") MultipartFile coverImage,
             @PathVariable String categoryId
     ) throws IOException {
-        logger.info("Initiating request to uploadCoverImage: {}" + categoryId);
+        logger.info("Initiating request to uploadCoverImage: {}" , categoryId);
 
         String coverImage1 = this.fileService.uploadFile(coverImage, coverImagepath);
         CategoryDto categoryDto = this.categoryService.getCategoryDtoById(categoryId);
@@ -174,7 +181,7 @@ public class CategoryController {
         CategoryDto updateCategoryDto = this.categoryService.updateCategoryDto(categoryDto, categoryId);
 
        ImageResponse coverImageResponse = ImageResponse.builder().message(ApiConstant.COVER_IMAGE_UPLOADED).imageName(coverImage1).success(true).status(HttpStatus.OK).build();
-        logger.info("Completing request  to uploadCoverImage: {}" + categoryId);
+        logger.info("Completing request  to uploadCoverImage: {}" , categoryId);
         return new ResponseEntity<>(coverImageResponse, HttpStatus.OK);
 
     }
