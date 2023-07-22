@@ -21,9 +21,9 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String uploadFile(MultipartFile file, String path) throws IOException {
-        logger.info("Initiating request to uploadFile" );
+        logger.info("Initiating request to uploadFile : {}",path );
         String originalFilename = file.getOriginalFilename();
-        logger.info("FileName  :{} " + originalFilename);
+        logger.info("FileName  :{} " ,originalFilename);
         String fileName = UUID.randomUUID().toString();
         String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         String fileNameWithExtension = fileName + extension;
@@ -32,26 +32,29 @@ public class FileServiceImpl implements FileService {
         logger.info("full image path: {}" + fullPathWithFileName);
 
         if ((extension.equalsIgnoreCase(".png")) || extension.equalsIgnoreCase(".jpg") || extension.equalsIgnoreCase(".jpeg")) {
-             logger.info("file extension is : {} " +extension);
+             logger.info("file extension is : {} " ,extension);
             File folder = new File(path);
             if (!folder.exists()) {
 //                folder we are using multiple label then use mkdirs***
                 folder.mkdirs();
             }// upload
             Files.copy(file.getInputStream(), Paths.get(fullPathWithFileName));
+            logger.info("Completing request to uploadFile : {}",path +fullPathWithFileName);
             return fileNameWithExtension;
 
 
         } else {
-            throw new BadApiRequest(ApiConstant.Bad_ApiRequest1 + extension + ApiConstant.Bad_ApiRequest2);
+            throw new BadApiRequest(ApiConstant.Bad_ApiRequest +extension );
         }
 
     }
 
     @Override
     public InputStream getResource(String path, String name) throws FileNotFoundException {
+       logger.info("Initiating request to getResource : {}",path +name);
         String fullpath = path + File.separator + name;
         InputStream inputStream = new FileInputStream(fullpath);
+        logger.info("Completing request to getResource : {}",path +name);
         return inputStream;
     }
 }
