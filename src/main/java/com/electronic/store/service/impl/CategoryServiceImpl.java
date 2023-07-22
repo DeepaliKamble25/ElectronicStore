@@ -44,29 +44,32 @@ public class CategoryServiceImpl implements CategoryService {
     private String coverImagePath;
     @Override
     public CategoryDto createCategoryDto(CategoryDto categoryDto) {
+        logger.info("Initiating request to createCategoryDto");
         String categoryId = UUID.randomUUID().toString();
         categoryDto.setCategoryId(categoryId);
         Category category = this.modelMapper.map(categoryDto, Category.class);
         Category saveCategory = this.categoryRepository.save(category);
-
+        logger.info("Completing request to createCategoryDto");
         return this.modelMapper.map(saveCategory,CategoryDto.class);
     }
 
     @Override
     public CategoryDto updateCategoryDto(CategoryDto categoryDto, String categoryId) {
+        logger.info("Initiating request to updateCategoryDto: {}",categoryId);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.Resource_Not_Found_Exception));
         category.setTitle(categoryDto.getTitle());
         category.setDescription(categoryDto.getDescription());
         category.setCoverImage(categoryDto.getCoverImage());
 
         Category updatedCategory = this.categoryRepository.save(category);
-
+        logger.info("Completing request to updateCategoryDto: {}",categoryId);
         return this.modelMapper.map(updatedCategory,CategoryDto.class);
     }
 
 
     @Override
     public void deleteCategoryDto(String categoryId) {
+        logger.info("Initiating request to Deleted category bycategoryId: {} ",categoryId);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.Resource_Not_Found_Exception));
            this.categoryRepository.delete(category);
 
@@ -76,7 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
             Files.delete(coverImagepath);
         } catch(NoSuchFileException ex)
         {
-            logger.info("Category image cover not found in folder ");
+            logger.info("Category image cover not found in folder:{} ",fullCoverpath);
 
             ex.printStackTrace();
 
@@ -85,12 +88,12 @@ public class CategoryServiceImpl implements CategoryService {
             e.printStackTrace();
         }
         this.categoryRepository.delete(category);
-        logger.info("Completing request to Deleted category bycategoryId: {} "+categoryId);
+        logger.info("Completing request to Deleted category bycategoryId: {} ",categoryId);
     }
 
     @Override
     public PageableResponse <CategoryDto> getAllCategories(int pageNumber, int pageSize, String sortBy, String sortDir) {
-        logger.info("Initiating request to get All categories: {} ");
+        logger.info("Initiating request to get All categories");
 
         Sort sort = (sortDir.equalsIgnoreCase("desc")) ? (Sort.by(sortBy).descending()) : (Sort.by(sortBy).ascending());
 
@@ -100,24 +103,26 @@ public class CategoryServiceImpl implements CategoryService {
 
         PageableResponse<CategoryDto> response = Helper.getPageableResponse(page, CategoryDto.class);
 
-        logger.info("Completing request to get All categories: {} ");
+        logger.info("Completing request to get All categories");
 
         return response;
     }
 
     @Override
     public CategoryDto getCategoryDtoById(String categoryId) {
+        logger.info("Initiating request to getCategoryDtoById:{}",categoryId);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.Resource_Not_Found_Exception));
-
+        logger.info("Completing request to getCategoryDtoById:{}",categoryId);
         return this.modelMapper.map(category,CategoryDto.class);
     }
 
     @Override
     public List<CategoryDto> searchByCategoryId(String keywords) {
-        logger.info("Initiating request to searchUser"+keywords);
+        logger.info("Initiating request to searchUser:{}",keywords);
 
         List<Category> categories = this.categoryRepository.findByTitleContaining(keywords);
         List<CategoryDto> categoryDtos = categories.stream().map(cate -> this.modelMapper.map(cate, CategoryDto.class)).collect(Collectors.toList());
+        logger.info("Completing  request to searchUser:{}",keywords);
         return categoryDtos;
     }
 }
