@@ -20,6 +20,6 @@ public class BadApiRequest extends RuntimeException {
 
 
         super(ApiConstant.Bad_ApiRequest_Message);
-        logger.info("Initiating BadApiRequest: {}");
+        logger.info("Initiating BadApiRequest");
     }
 }
