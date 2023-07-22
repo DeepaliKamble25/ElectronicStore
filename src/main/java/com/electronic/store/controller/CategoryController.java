@@ -160,7 +160,7 @@ public class CategoryController {
 
     //upload coverImage
     @PostMapping("/coverimage/{categoryId}")
-    public ResponseEntity<CoverImageResponse> uploadCoverImage(
+    public ResponseEntity<ImageResponse> uploadCoverImage(
             @RequestParam("coverImage") MultipartFile coverImage,
             @PathVariable String categoryId
     ) throws IOException {
@@ -173,7 +173,7 @@ public class CategoryController {
 
         CategoryDto updateCategoryDto = this.categoryService.updateCategoryDto(categoryDto, categoryId);
 
-        CoverImageResponse coverImageResponse = CoverImageResponse.builder().message(ApiConstant.COVER_IMAGE_UPLOADED).coverImageName(coverImage1).success(true).status(HttpStatus.OK).build();
+       ImageResponse coverImageResponse = ImageResponse.builder().message(ApiConstant.COVER_IMAGE_UPLOADED).imageName(coverImage1).success(true).status(HttpStatus.OK).build();
         logger.info("Completing request  to uploadCoverImage: {}" + categoryId);
         return new ResponseEntity<>(coverImageResponse, HttpStatus.OK);
 
@@ -198,7 +198,7 @@ public class CategoryController {
         InputStream resource = this.fileService.getResource(coverImagepath, categoryDto.getCoverImage());
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(resource, response.getOutputStream());
-        logger.info("Completing request  to serveCoverImage: {}" + categoryId);
+        logger.info("Completing request  to serveCoverImage: {}" , categoryId);
 
     }
 

@@ -37,10 +37,6 @@ public class GlobalExceptiomHandler {
 
    }
 
-
-
-
-
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ApiResponse> userNotFoundException(UserNotFoundException ex){
 

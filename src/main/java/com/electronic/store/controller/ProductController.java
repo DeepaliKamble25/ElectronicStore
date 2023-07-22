@@ -45,9 +45,9 @@ public class ProductController {
     // create
     @PostMapping("/save")
     public ResponseEntity<ProductDto> createProductDto(@Valid @RequestBody ProductDto productDto) {
-        logger.info("Initiating request to create ProductDto : {}");
+        logger.info("Initiating request to create ProductDto ");
         ProductDto savedproductDto1 = this.productService.createProductDto(productDto);
-        logger.info("Completing request to create ProductDto : {}");
+        logger.info("Completing request to create ProductDto ");
         return new ResponseEntity<>(savedproductDto1, HttpStatus.CREATED);
     }
 
@@ -61,9 +61,9 @@ public class ProductController {
     //update
     @PutMapping("/update/{productId}")
     public ResponseEntity<ProductDto> updateProductDto(@Valid @RequestBody ProductDto productDto, @PathVariable String productId) {
-        logger.info("Initiating request to update ProductDto : {}" +productId);
+        logger.info("Initiating request to update ProductDto : {}" ,productId);
         ProductDto savedproductDto1 = this.productService.updateProductDto(productDto, productId);
-        logger.info("Completing request to updateProductDto : {}"+productId );
+        logger.info("Completing request to updateProductDto : {}",productId );
         return new ResponseEntity<>(savedproductDto1, HttpStatus.OK);
     }
 
@@ -76,10 +76,10 @@ public class ProductController {
     //delete
     @DeleteMapping("/delete")
     public ResponseEntity<ApiResponse> deleteProductDto(@PathVariable String productId) {
-        logger.info("Initiating request to delete ProductDto : {}" +productId);
+        logger.info("Initiating request to delete ProductDto : {}" ,productId);
         this.productService.deleteProductDto(productId);
         ApiResponse response = ApiResponse.builder().message(ApiConstant.PRODUCT_DELETED).success(true).status(HttpStatus.OK).build();
-        logger.info("Completing request to delete ProductDto : {}"+productId );
+        logger.info("Completing request to delete ProductDto : {}",productId );
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -94,9 +94,9 @@ public class ProductController {
     //getsingle
     @GetMapping("/get/{productId}")
     public ResponseEntity<ProductDto> getSingleProductDto(@PathVariable String productId) {
-        logger.info("Initiating request to get single ProductDto : {}" +productId);
+        logger.info("Initiating request to get single ProductDto : {}" ,productId);
         ProductDto singleProductDto = this.productService.getSingleProductDto(productId);
-        logger.info("Completing request to get single ProductDto : {}"+productId );
+        logger.info("Completing request to get single ProductDto : {}",productId );
         return new ResponseEntity<>(singleProductDto, HttpStatus.OK);
     }
 
@@ -117,9 +117,9 @@ public class ProductController {
             @RequestParam(value = "sortBy", defaultValue = "title", required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
     ) {
-        logger.info("Initiating request to get all ProductDto : {}" );
+        logger.info("Initiating request to get all ProductDto " );
         PageableResponse<ProductDto> productsDto = this.productService.getAll(pageNumber, pageSize, sortBy, sortDir);
-        logger.info("Completing request to get all ProductDto : {}" );
+        logger.info("Completing request to get all ProductDto " );
         return new ResponseEntity<>(productsDto, HttpStatus.OK);
     }
 
@@ -141,9 +141,9 @@ public class ProductController {
             @RequestParam(value = "sortBy", defaultValue = "title", required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
     ) {
-        logger.info("Initiating request to get Live ProductDto : {}" );
+        logger.info("Initiating request to get Live ProductDto " );
         PageableResponse<ProductDto> liveProductDto = this.productService.getAllLiveProductDto(pageNumber, pageSize, sortBy, sortDir);
-        logger.info("Completing request to get Live ProductDto : {}" );
+        logger.info("Completing request to get Live ProductDto " );
         return new ResponseEntity<>(liveProductDto, HttpStatus.OK);
     }
 
@@ -151,11 +151,10 @@ public class ProductController {
      * @author Deepali Kamble
      * @apiNote get ProductDto by subtitle
      * @param query
-     * @param pageNumber
      * @param pageSize
      * @param sortBy
      * @param sortDir
-     * @return
+     * @return ProductDto
      */
     //search
     @GetMapping("/search/{query}")
@@ -167,9 +166,9 @@ public class ProductController {
      @RequestParam(value = "sortBy", defaultValue = "title", required = false) String sortBy,
      @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir
     ) {
-        logger.info("Initiating request to get productDto by subtitle: {}" +query);
+        logger.info("Initiating request to get productDto by subtitle: {}" ,query);
         PageableResponse<ProductDto> subTitleProductDto = this.productService.searchByTilte(query, pageNumber, pageSize, sortBy, sortDir);
-        logger.info("Completing request to  get productDto by subtitle: {}" +query);
+        logger.info("Completing request to  get productDto by subtitle: {}",query);
         return new ResponseEntity<>(subTitleProductDto, HttpStatus.OK);
     }
 
@@ -186,13 +185,13 @@ public class ProductController {
             @RequestParam ("productimage")MultipartFile file,
             @PathVariable String productId
     ) throws IOException {
-        logger.info("Initiating request to upload image: {}" +productId);
+        logger.info("Initiating request to upload image: {}" ,productId);
         String paths = fileService.uploadFile(file, productPath);
         ProductDto productDto = this.productService.getSingleProductDto(productId);
         productDto.setProductImageName(paths);
         ProductDto productDto1 = productService.updateProductDto(productDto, productId);
         ImageResponse response = ImageResponse.builder().imageName(productDto1.getProductImageName()).message(ApiConstant.PRODUCT_Image_Name).success(true).status(HttpStatus.CREATED).build();
-        logger.info("Completing request to  upload image: {}" +productId);
+        logger.info("Completing request to  upload image: {}" ,productId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     };
 
@@ -208,12 +207,12 @@ public class ProductController {
             @PathVariable String productId,
             HttpServletResponse response
     ) throws IOException {
-        logger.info("Initiating request to search image: {}" +productId);
+        logger.info("Initiating request to search image: {}" ,productId);
         ProductDto productDto = this.productService.getSingleProductDto(productId);
         InputStream resource = this.fileService.getResource(productPath, productDto.getProductImageName());
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(resource, response.getOutputStream());
-        logger.info("Completing request to  search image: {}" +productId);
+        logger.info("Completing request to  search image: {}" ,productId);
 
     }
 
