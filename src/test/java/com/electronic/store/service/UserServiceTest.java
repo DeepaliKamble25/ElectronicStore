@@ -126,19 +126,22 @@ public class UserServiceTest {
     @Test
     public void getUserByIdTest(){
         String userId="asd";
-        Mockito.when(userRepository.findById(Mockito.anyString())).thenReturn(Optional.of(user));
+        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
         UserDto userDto= userService.getUserById(userId);
+        Assertions.assertNotNull(userDto);
         Assertions.assertEquals(user.getName(),userDto.getName(),"Test Fail for getuser by userId !!!");
 
     }
     @Test
     public void getUserByEmailTest(){
-        String email="asd@gmail.com";
-        Mockito.when(userRepository.findByEmail(Mockito.anyString())).thenReturn(Optional.of(user));
+        String email="aarti@gmail.com";
+        Mockito.when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
         UserDto userDto= userService.getUserByEmail(email);
-        Assertions.assertEquals(user.getName(),userDto.getName(),"Test Fail for getuser by userId !!!");
+        Assertions.assertNotNull(userDto);
+        System.out.println(userDto.getEmail());
+        Assertions.assertEquals(user.getName(),userDto.getName(),"Test Fail email not match !!!");
 
     }
     @Test

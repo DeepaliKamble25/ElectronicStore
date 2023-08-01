@@ -40,6 +40,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+//    @Autowired
+//    private RoleRepository roleRepository;
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -48,6 +50,7 @@ public class UserServiceImpl implements UserService {
         String userId = UUID.randomUUID().toString();
         userDto.setUserId(userId);
         User user = this.modelMapper.map(userDto, User.class);
+
 //        user.setUserId(userId);
         User saveUser = userRepository.save(user);
         logger.info("Completing request to saved");
@@ -56,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(UserDto userDto, String userId) {
-        logger.info("Initiating request to updateUser by findById method: {}"+userId);
+        logger.info("Initiating request to updateUser by findById method: {}",userId);
         User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(ApiConstant.User_Not_Found + userId));
         user.setName(userDto.getName());
         user.setAbout(userDto.getAbout());
