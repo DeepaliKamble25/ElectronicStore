@@ -66,7 +66,7 @@ public class CategoryControllerTest {
     public void updateCategoryDtoTest() throws Exception {
         CategoryDto categoryDto = this.modelMapper.map(category, CategoryDto.class);
         String categoryId = "De12";
-        Mockito.when(categoryService.updateCategoryDto(categoryDto,categoryId)).thenReturn(categoryDto);
+        Mockito.when(categoryService.updateCategoryDto(Mockito.any(),Mockito.anyString())).thenReturn(categoryDto);
         mockMvc.perform(MockMvcRequestBuilders.put("/categories/updated/" + categoryId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(convertObjectToJson(category))
