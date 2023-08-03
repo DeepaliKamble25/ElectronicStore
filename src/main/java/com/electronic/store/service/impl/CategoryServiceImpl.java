@@ -71,7 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategoryDto(String categoryId) {
         logger.info("Initiating request to Deleted category bycategoryId: {} ",categoryId);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.Resource_Not_Found_Exception));
-           this.categoryRepository.delete(category);
+
 
         String fullCoverpath = coverImagePath + category.getCoverImage();
         try {

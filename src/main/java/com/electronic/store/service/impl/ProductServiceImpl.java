@@ -46,20 +46,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto createProductDto(ProductDto productDto) {
-        logger.info("Initiating request to create ProductDto: {}");
+        logger.info("Initiating request to create ProductDto");
         String productId = UUID.randomUUID().toString();
         productDto.setProductId(productId);
         productDto.setAddeddate(new Date());
 
         Product product = this.modelMapper.map(productDto, Product.class);
         Product savedProduct = this.productRepository.save(product);
-        logger.info("Completing request to create ProductDto: {}");
+        logger.info("Completing request to create ProductDto");
         return this.modelMapper.map(savedProduct, ProductDto.class);
     }
 
     @Override
     public ProductDto updateProductDto(ProductDto productDto, String productId) {
-        logger.info("Initiating request to update ProductDto: {}"+ productId);
+        logger.info("Initiating request to update ProductDto: {}", productId);
         Product product = this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.PRODUCT_Not_Found + productId));
         product.setTitle(productDto.getTitle());
         product.setDescription(productDto.getDescription());
@@ -71,13 +71,13 @@ public class ProductServiceImpl implements ProductService {
         product.setDiscountedPrice(productDto.getDiscountedPrice());
         product.setProductImageName(productDto.getProductImageName());
         Product savedProduct = this.productRepository.save(product);
-        logger.info("Completing request to update ProductDto: {}" + productId);
+        logger.info("Completing request to update ProductDto: {}" , productId);
         return this.modelMapper.map(savedProduct, ProductDto.class);
     }
 
     @Override
     public void deleteProductDto(String productId) {
-        logger.info("Initiating request to delete ProductDto: {}" + productId);
+        logger.info("Initiating request to delete ProductDto: {}" , productId);
         Product product = this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.PRODUCT_Not_Found + productId));
         String productImageName = product.getProductImageName();
         String fullpath= productPath+productImageName;
@@ -86,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
                 Files.delete(path);
         } catch(NoSuchFileException ex)
         {
-            logger.info("User image not found in folder ");
+            logger.info("User image not found in folder :{}",fullpath);
 
             ex.printStackTrace();
 
@@ -96,53 +96,53 @@ public class ProductServiceImpl implements ProductService {
         }
 
         this.productRepository.delete(product);
-        logger.info("Completing request to Deleted UserById "+productId);
+        logger.info("Completing request to Deleted UserById:{} ",productId);
     }
 
     @Override
     public PageableResponse<ProductDto> getAll(int pageNumber, int pageSize, String sortBy, String sortDir) {
-        logger.info("Initiating request to get all ProductDto: {}" );
+        logger.info("Initiating request to get all ProductDto" );
         Sort sort = (sortDir.equalsIgnoreCase("desc")) ? (Sort.by(sortBy).descending()) : (Sort.by(sortBy).ascending());
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
         Page<Product> productPage = this.productRepository.findAll(pageable);
         PageableResponse<ProductDto> response = Helper.getPageableResponse(productPage, ProductDto.class);
-        logger.info("Completing request to get all ProductDto: {}");
+        logger.info("Completing request to get all ProductDto");
         return response;
     }
 
     @Override
     public ProductDto getSingleProductDto(String productId) {
-        logger.info("Initiating request to get single ProductDto: {}" );
+        logger.info("Initiating request to get single ProductDto:{}",productId );
         Product product = this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.PRODUCT_Not_Found + productId));
-        logger.info("Completing request to get single ProductDto: {}");
+        logger.info("Completing request to get single ProductDto:{}",productId);
         return this.modelMapper.map(product, ProductDto.class);
     }
 
     @Override
     public PageableResponse<ProductDto> getAllLiveProductDto(int pageNumber, int pageSize, String sortBy, String sortDir) {
-        logger.info("Initiating request to get all live  ProductDto: {}" );
+        logger.info("Initiating request to get all live  ProductDto");
         Sort sort=(sortDir.equalsIgnoreCase("desc"))?(Sort.by(sortBy).descending()):(Sort.by(sortBy).ascending());
        //manually written pageable
         Pageable pageable  = PageRequest.of(pageNumber, pageSize, sort);
         Page<Product> productPageableResponse = this.productRepository.findByLiveTrue(pageable);
-        logger.info("Completing request to get all live ProductDto: {}");
+        logger.info("Completing request to get all live ProductDto");
         return Helper.getPageableResponse(productPageableResponse,ProductDto.class);
     }
 
     @Override
     public PageableResponse<ProductDto> searchByTilte(String subTitle, int pageNumber, int pageSize, String sortBy, String sortDir) {
-        logger.info("Initiating request to  search by title  ProductDto: {}" +subTitle);
+        logger.info("Initiating request to  search by title  ProductDto: {}" ,subTitle);
         Sort sort=(sortDir.equalsIgnoreCase("desc"))?(Sort.by(sortBy).descending()):(Sort.by(sortBy).ascending());
         //manually written pageable
         Pageable pageable  = PageRequest.of(pageNumber, pageSize, sort);
         Page<Product> productPage = this.productRepository.findByTitleContaining(subTitle, pageable);
-        logger.info("Completing request to search by title  ProductDto: {}"+subTitle);
+        logger.info("Completing request to search by title  ProductDto: {}",subTitle);
         return Helper.getPageableResponse(productPage,ProductDto.class);
     }
 
     @Override
     public ProductDto createWithCategory(ProductDto productDto, String categoryId) {
-        logger.info("Initiating request to  createWithCategory: {}" +categoryId);
+        logger.info("Initiating request to  createWithCategory: {}" ,categoryId);
         //category get from database
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.CSTEGORY_NOT_FOUND + categoryId));
       Product product= this.modelMapper.map(productDto,Product.class);
@@ -152,7 +152,7 @@ public class ProductServiceImpl implements ProductService {
         product.setAddeddate(new Date());
       //  product.setCategory(category);
         Product savedProduct = this.productRepository.save(product);
-        logger.info("Completing request to  createWithCategory: {}" +categoryId);
+        logger.info("Completing request to  createWithCategory: {}" ,categoryId);
         return this.modelMapper.map(savedProduct, ProductDto.class);
 
 
@@ -160,7 +160,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto updatewithCategory(String productId, String categoryId) {
-        logger.info("Initiating request to updatewithCategory: {}" +productId +categoryId);
+        logger.info("Initiating request to updatewithCategory: {}" ,productId +categoryId);
         //get product
         Product product = this.productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.PRODUCT_Not_Found + productId));
         //get category
@@ -169,19 +169,19 @@ public class ProductServiceImpl implements ProductService {
         product.setCategory(category);
        //save in product repo category
         Product savedProduct = this.productRepository.save(product);
-        logger.info("Completing request to  updatewithCategory: {}" +productId +categoryId);
+        logger.info("Completing request to  updatewithCategory: {}" ,productId +categoryId);
         return this.modelMapper.map(savedProduct, ProductDto.class);
     }
 
     @Override
     public PageableResponse<ProductDto> getallCategories(String categoryId, int pageNumber, int pageSize, String sortBy, String sortDir) {
-        logger.info("Initiating request to getallCategories: {}" +categoryId);
+        logger.info("Initiating request to getallCategories: {}" ,categoryId);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.CSTEGORY_NOT_FOUND + categoryId));
         Sort sort=(sortDir.equalsIgnoreCase("desc"))?(Sort.by(sortBy).descending()):(Sort.by(sortBy).ascending());
         //manually written pageable
         Pageable pageable  = PageRequest.of(pageNumber, pageSize, sort);
         Page<Product> productPage = this.productRepository.findByCategory(category,pageable);
-        logger.info("Completing request to  getallCategories: {}" +categoryId);
+        logger.info("Completing request to  getallCategories: {}" ,categoryId);
         return Helper.getPageableResponse(productPage,ProductDto.class);
     }
 

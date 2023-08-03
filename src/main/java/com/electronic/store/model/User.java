@@ -4,13 +4,15 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends BaseEntity{
 
     @Id
     private String userId;
@@ -31,4 +33,7 @@ public class User {
 
     @Column(name="user_image_name")
     private String image;
+
+//    @OneToMany(mappedBy = "userRoles",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    Set<Role> roles;
 }
