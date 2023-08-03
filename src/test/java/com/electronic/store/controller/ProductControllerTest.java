@@ -6,6 +6,7 @@ import com.electronic.store.model.Product;
 import com.electronic.store.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,7 @@ public class ProductControllerTest {
                 .stock(true)
                 .build();
     }
+    @Test
     public void createProductDtoTest() throws Exception {
 
        ProductDto productDto=  this.modelMapper.map(product, ProductDto.class);
@@ -62,6 +64,12 @@ public class ProductControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.title").exists());
+    }
+    @Test
+    public void updateProductDtoTest(){
+
+
+
     }
 
     private String convertObjectToJson(Object product) {
