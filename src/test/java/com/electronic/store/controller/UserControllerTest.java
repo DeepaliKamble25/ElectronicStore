@@ -50,7 +50,7 @@ public class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
+    UserDto userDto1; UserDto userDto2;UserDto userDto3;
 //    MultipartFile file;
     @BeforeEach
     public void init() {
@@ -62,6 +62,10 @@ public class UserControllerTest {
                 .image("asd.jpeg")
                 .password("asdD25")
                 .build();
+         userDto1 = UserDto.builder().name("Poonam").email("aarti@gmail.com").about("this is teating user method for servive").gender("female").image("asd.jpeg").password("asdD25").build();
+         userDto2 = UserDto.builder().name("Praniti").email("praniti@gmail.com").about("this is teating user method for servive").gender("female").image("asd.jpeg").password("asdD26").build();
+        userDto3 = UserDto.builder().name("Prashika").email("prashika@gmail.com").about("this is teating user method for servive").gender("male").image("asd.jpeg").password("asdD27").build();
+
     }
 
     @Test
@@ -114,9 +118,6 @@ public class UserControllerTest {
     //get by Id
     @Test
     public void getAllUserTest() throws Exception {
-        UserDto userDto1 = UserDto.builder().name("Poonam").email("aarti@gmail.com").about("this is teating user method for servive").gender("female").image("asd.jpeg").password("asdD25").build();
-        UserDto userDto2 = UserDto.builder().name("Praniti").email("praniti@gmail.com").about("this is teating user method for servive").gender("female").image("asd.jpeg").password("asdD26").build();
-        UserDto userDto3 = UserDto.builder().name("Prashika").email("prashika@gmail.com").about("this is teating user method for servive").gender("male").image("asd.jpeg").password("asdD27").build();
 
         //UserDto userDto1=new UserDto("asdf","dip","")
 
@@ -165,10 +166,7 @@ public class UserControllerTest {
     }
     @Test
     public void searchUserTest() throws Exception {
-        UserDto userDto1 = UserDto.builder().name("Pramodini").email("aarti@gmail.com").about("this is teating user method for servive").gender("female").image("asd.jpeg").password("asdD25").build();
-        UserDto userDto2 = UserDto.builder().name("Praniti").email("praniti@gmail.com").about("this is teating user method for servive").gender("female").image("asd.jpeg").password("asdD26").build();
-        UserDto userDto3 = UserDto.builder().name("Prashika").email("prashika@gmail.com").about("this is teating user method for servive").gender("male").image("asd.jpeg").password("asdD27").build();
-        String keywords = "Pra";
+          String keywords = "Pra";
         //UserDto userDto1=new UserDto("asdf","dip","")
         List<UserDto> list = Arrays.asList(userDto1, userDto2, userDto3);
 
