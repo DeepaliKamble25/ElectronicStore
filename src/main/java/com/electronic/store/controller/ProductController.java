@@ -111,7 +111,7 @@ public class ProductController {
      */
     //getall
     @GetMapping("/getall")
-    public ResponseEntity<PageableResponse<ProductDto>> getAll(
+    public ResponseEntity<PageableResponse<ProductDto>> getAllProduct(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = "title", required = false) String sortBy,
