@@ -1,11 +1,14 @@
 package com.electronic.store.controller;
 
 import com.electronic.store.dto.CategoryDto;
+import com.electronic.store.dto.ProductDto;
 import com.electronic.store.dto.UserDto;
 import com.electronic.store.model.Category;
 
+import com.electronic.store.model.Product;
 import com.electronic.store.playload.PageableResponse;
 import com.electronic.store.service.CategoryService;
+import com.electronic.store.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +34,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class CategoryControllerTest {
     private Category category;
+    private Product product;
     @MockBean
     private CategoryService categoryService;
+
+    @MockBean
+    private ProductService productService;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -127,19 +134,36 @@ public class CategoryControllerTest {
                 .andExpect(status().isOk());
 
     }
-    private String convertObjectToJson(Object user) {
+    @Test
+    public void updateCategoryInProductTest() throws Exception {
+         product = Product.builder().category(category).title("Jio service").description("broadBand Network Service")
+                .price(10000).discountedPrice(9800).live(true).stock(true).productImageName("oip.jpeg").quantity(1).build();
+        ProductDto productDto = this.modelMapper.map(product, ProductDto.class);
+        Product product = this.modelMapper.map(productDto, Product.class);
+        String categoryId="asd";
+        String productId="asdf";
+        Mockito.when(productService.updatewithCategory(Mockito.anyString(),Mockito.anyString())).thenReturn(productDto);
+        mockMvc.perform(MockMvcRequestBuilders.put("/categories/{categoryId}/products/" + categoryId+productId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(convertObjectToJson(category))
+                        .accept(MediaType.APPLICATION_JSON)
+                ).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").exists());
 
+    }
+
+    private String convertObjectToJson(Object category) {
         try {
-            return new ObjectMapper().writeValueAsString(user);
+            return new ObjectMapper().writeValueAsString(category);
 
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-
     }
 
-    }
+}
 
 
 

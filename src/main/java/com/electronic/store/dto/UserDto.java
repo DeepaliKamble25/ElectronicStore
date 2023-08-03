@@ -1,13 +1,8 @@
 package com.electronic.store.dto;
 
-import com.electronic.store.model.BaseEntity;
 import com.electronic.store.validate.ImageNameValid;
 import lombok.*;
-import org.springframework.validation.annotation.Validated;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.validation.constraints.*;
 
 @Getter
@@ -15,7 +10,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto extends BaseEntity {
+public class UserDto  {
 
 
     private String userId;

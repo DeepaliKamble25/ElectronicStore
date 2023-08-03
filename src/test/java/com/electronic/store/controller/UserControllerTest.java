@@ -99,18 +99,17 @@ public class UserControllerTest {
 
     }
 
-  /*  @Test
+    @Test
     public void deleteUserTest() throws Exception {
         String userId="123";
        // ApiResponse message= ApiResponse.builder().message(ApiConstant.User_DELETED).success(true).status(HttpStatus.OK).build();
 
-        this.mockMvc.perform(MockMvcRequestBuilders.delete("/users/" +userId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
+
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/users/" +userId))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-    }*/
+    }
 
     //get by Id
     @Test
