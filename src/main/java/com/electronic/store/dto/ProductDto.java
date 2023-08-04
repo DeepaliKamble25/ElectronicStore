@@ -5,6 +5,7 @@ import com.electronic.store.validate.ImageNameValid;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
+import javax.persistence.Embedded;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -42,4 +43,7 @@ public class ProductDto {
     private String productImageName;
 
     private CategoryDto category;
+
+    @Embedded
+    private BaseDto baseDto;
 }
