@@ -3,6 +3,7 @@ package com.electronic.store.dto;
 import com.electronic.store.validate.ImageNameValid;
 import lombok.*;
 
+import javax.persistence.Embedded;
 import javax.validation.constraints.*;
 
 @Getter
@@ -38,4 +39,7 @@ public class UserDto  {
 
     @ImageNameValid
     private String image;
+
+    @Embedded
+    private BaseDto baseDto;
 }
