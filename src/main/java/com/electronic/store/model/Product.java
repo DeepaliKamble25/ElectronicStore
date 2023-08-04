@@ -48,5 +48,7 @@ public class Product {
     @JoinColumn(name = "category_product_Id")
     private Category category;
 
+    @Embedded
+    private BaseEntity baseEntity;
 
 }
