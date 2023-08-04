@@ -5,6 +5,7 @@ import com.electronic.store.validate.CoverImageValid;
 import lombok.*;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class CategoryDto {
     private String coverImage;
 
     private List<ProductDto> productDtos=new ArrayList<>();
+    @Embedded
+    private BaseDto baseDto;
 
 
 }
