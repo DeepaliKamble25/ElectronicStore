@@ -33,6 +33,8 @@ public class User {
 
     @Column(name="user_image_name")
     private String image;
+    @Embedded
+    private BaseEntity baseEntity;
 
 //    @OneToMany(mappedBy = "userRoles",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 //    Set<Role> roles;
