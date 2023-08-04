@@ -40,6 +40,8 @@ public class ProductServiceTest {
 
     Product product;
     Category category;
+    Product product1;
+    Product product2;
 
     @BeforeEach
     public void init() {
@@ -58,6 +60,29 @@ public class ProductServiceTest {
                 .title("ProductSoapWeb")
                 .description("wed server details working ")
                 .coverImage("kkp.jpeg")
+                .build();
+         product1 = Product.builder()
+                .title("Light test")
+                .description("I am developer")
+                .live(true)
+                .price(1600)
+                .addeddate(new Date())
+                .discountedPrice(1400)
+                .quantity(1)
+                .productImageName("oops.jpeg")
+                .stock(true)
+                .build();
+
+     product2 = Product.builder()
+                .title("Bulk test")
+                .description("I am developer")
+                .live(true)
+                .price(2800)
+                .addeddate(new Date())
+                .discountedPrice(2500)
+                .quantity(1)
+                .productImageName("oops.jpeg")
+                .stock(true)
                 .build();
     }
 
@@ -102,29 +127,7 @@ public class ProductServiceTest {
 
     @Test
     public void getAllTest() {
-        Product product1 = Product.builder()
-                .title("Light test")
-                .description("I am developer")
-                .live(true)
-                .price(1600)
-                .addeddate(new Date())
-                .discountedPrice(1400)
-                .quantity(1)
-                .productImageName("oops.jpeg")
-                .stock(true)
-                .build();
 
-        Product product2 = Product.builder()
-                .title("Bulk test")
-                .description("I am developer")
-                .live(true)
-                .price(2800)
-                .addeddate(new Date())
-                .discountedPrice(2500)
-                .quantity(1)
-                .productImageName("oops.jpeg")
-                .stock(true)
-                .build();
         List<Product> productList = Arrays.asList(product, product2, product1);
         Page page = new PageImpl(productList);
         Mockito.when(productRepository.findAll((Pageable) Mockito.any())).thenReturn(page);
