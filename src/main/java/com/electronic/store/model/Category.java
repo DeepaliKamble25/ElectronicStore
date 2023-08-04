@@ -12,32 +12,27 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="categories")
+@Table(name = "categories")
 public class Category {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     private String categoryId;
 
-    @Column(name="category_title")
+    @Column(name = "category_title")
     private String title;
 
-    @Column(name="category_description")
+    @Column(name = "category_description")
     private String description;
 
-    @Column(name="category_cover_Image_name")
+    @Column(name = "category_cover_Image_name")
     private String coverImage;
 
-     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-     private List<Product> product=new ArrayList<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> product = new ArrayList<>();
 
-
-
-
-
-
-
-
+    @Embedded
+    private BaseEntity baseEntity;
 
 
 }
