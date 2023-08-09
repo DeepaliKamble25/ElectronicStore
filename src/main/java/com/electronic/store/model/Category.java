@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Table(name = "categories")
-public class Category {
+public class Category extends BaseEntity {
 
     @Id
     @Column(name = "id")
@@ -31,8 +31,7 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> product = new ArrayList<>();
 
-    @Embedded
-    private BaseEntity baseEntity;
+
 
 
 }
