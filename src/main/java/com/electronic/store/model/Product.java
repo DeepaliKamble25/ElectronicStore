@@ -14,7 +14,7 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product extends BaseEntity {
 
     @Id
     private String productId;
@@ -48,7 +48,6 @@ public class Product {
     @JoinColumn(name = "category_product_Id")
     private Category category;
 
-    @Embedded
-    private BaseEntity baseEntity;
+
 
 }
