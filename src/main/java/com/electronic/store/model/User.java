@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends BaseEntity{
 
     @Id
     private String userId;
@@ -33,8 +33,7 @@ public class User {
 
     @Column(name="user_image_name")
     private String image;
-    @Embedded
-    private BaseEntity baseEntity;
+
 
 //    @OneToMany(mappedBy = "userRoles",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 //    Set<Role> roles;
