@@ -19,5 +19,7 @@ public interface CartService {
 //    remove all item cart
     void removeAllItemfromCart(String userId);
 
+    CartDto getCartByUser(String userId);
+
 
 }
