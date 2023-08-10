@@ -1,5 +1,6 @@
 package com.electronic.store.dto;
 
+import com.electronic.store.model.BaseEntity;
 import com.electronic.store.model.CartItem;
 import com.electronic.store.model.User;
 import lombok.*;
@@ -15,15 +16,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CartDto {
+public class CartDto extends BaseEntity {
 
     private String cardId;
 
-    @DateTimeFormat
+
     private Date cardCreatedDate;
 
 
-    private UserDto userDto;
+    private UserDto user;
 
     private List<CartItemDto> items = new ArrayList<>();
 }

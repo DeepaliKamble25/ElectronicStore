@@ -9,12 +9,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 public class CartItemDto {
 
     private int cartItemId;
 
-    private ProductDto productDto;
+    private ProductDto product;
 
     private int quantity;
 
