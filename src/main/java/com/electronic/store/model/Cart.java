@@ -1,15 +1,21 @@
 package com.electronic.store.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "cart")
 public class Cart {
 
-    private int cardId;
+    private String cardId;
     private Date cardCreatedDate;
 
     @OneToOne
