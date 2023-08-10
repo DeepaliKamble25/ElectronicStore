@@ -1,9 +1,10 @@
 package com.electronic.store.dto;
 
+import com.electronic.store.model.BaseEntity;
 import com.electronic.store.validate.ImageNameValid;
 import lombok.*;
 
-import javax.persistence.Embedded;
+
 import javax.validation.constraints.*;
 
 @Getter
@@ -11,7 +12,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDto  {
+public class UserDto extends BaseEntity {
 
 
     private String userId;
@@ -40,6 +41,5 @@ public class UserDto  {
     @ImageNameValid
     private String image;
 
-    @Embedded
-    private BaseDto baseDto;
+
 }
