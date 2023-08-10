@@ -83,7 +83,7 @@ public class CartServiceImpl implements CartService {
             if (iTem.getProduct().getProductId().equals(productId)) {
                 logger.info("Initiating request to add iTem to cart ");
                 iTem.setQuantity(quantity);
-                iTem.setTotalPrice(quantity * product.getPrice());
+                iTem.setTotalPrice(quantity * product.getDiscountedPrice());
                 updated.set(true);
                 logger.info("Completing request to added iTem to cart");
             }
@@ -97,7 +97,7 @@ public class CartServiceImpl implements CartService {
             logger.info("Initiating request to adding cartItem");
             CartItem cartItem = CartItem.builder()
                     .quantity(quantity)
-                    .totalPrice(quantity * product.getPrice())
+                    .totalPrice(quantity * product.getDiscountedPrice())
                     .cart(cart)
                     .product(product)
                     .build();
