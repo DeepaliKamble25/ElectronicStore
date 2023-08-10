@@ -1,5 +1,6 @@
 package com.electronic.store.dto;
 
+import com.electronic.store.model.BaseEntity;
 import com.electronic.store.model.Category;
 import com.electronic.store.validate.ImageNameValid;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductDto {
+public class ProductDto extends BaseEntity {
 
     private  String productId;
     @NotBlank(message = "title required !!!")
@@ -44,6 +45,5 @@ public class ProductDto {
 
     private CategoryDto category;
 
-    @Embedded
-    private BaseDto baseDto;
+
 }

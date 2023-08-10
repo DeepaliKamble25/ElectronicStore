@@ -1,5 +1,6 @@
 package com.electronic.store.dto;
 
+import com.electronic.store.model.BaseEntity;
 import com.electronic.store.model.Product;
 import com.electronic.store.validate.CoverImageValid;
 import lombok.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoryDto {
+public class CategoryDto extends BaseEntity {
 
     private String categoryId;
     @NotBlank(message = "Title is required !!!")
@@ -31,8 +32,7 @@ public class CategoryDto {
     private String coverImage;
 
     private List<ProductDto> productDtos=new ArrayList<>();
-    @Embedded
-    private BaseDto baseDto;
+
 
 
 }
