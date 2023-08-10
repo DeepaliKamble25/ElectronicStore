@@ -1,8 +1,14 @@
 package com.electronic.store.model;
 
 
-import javax.persistence.*;
+import lombok.*;
 
+import javax.persistence.*;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table (name="cart_Item")
 public class CartItem {
@@ -11,6 +17,7 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartItemId;
     @OneToOne
+    @JoinColumn(name = "product_CartItem_Id")
     private Product product;
 
     private int quantity;
@@ -18,6 +25,7 @@ public class CartItem {
     private int totalPrice;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="cart_CartIt_Id")
     private Cart cart;
 
 

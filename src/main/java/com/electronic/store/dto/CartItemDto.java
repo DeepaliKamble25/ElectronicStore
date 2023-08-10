@@ -2,7 +2,13 @@ package com.electronic.store.dto;
 
 
 import com.electronic.store.model.Product;
-;
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 
 public class CartItemDto {
 
