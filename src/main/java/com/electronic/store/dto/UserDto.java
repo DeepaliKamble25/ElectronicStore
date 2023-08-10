@@ -1,11 +1,14 @@
 package com.electronic.store.dto;
 
 import com.electronic.store.model.BaseEntity;
+import com.electronic.store.model.Order;
 import com.electronic.store.validate.ImageNameValid;
 import lombok.*;
 
 
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,6 +43,8 @@ public class UserDto extends BaseEntity {
 
     @ImageNameValid
     private String image;
+
+    private List<OrderDto> userOrders=new ArrayList<>();
 
 
 }

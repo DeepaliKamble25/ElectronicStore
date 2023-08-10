@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,7 +35,8 @@ public class User extends BaseEntity{
 
     @Column(name="user_image_name")
     private String image;
-
+  @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private List<Order> userOrders=new ArrayList<>();
 
 //    @OneToMany(mappedBy = "userRoles",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 //    Set<Role> roles;

@@ -1,12 +1,10 @@
 package com.electronic.store.dto;
 
-import com.electronic.store.model.Order;
-import com.electronic.store.model.Product;
+
+
 import lombok.*;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,8 +17,8 @@ public class OrderItemDto {
     private int quantity;
     private int totalPrice;
 
-    private Product product;
+    private ProductDto productDto;
 
-    private Order order;
+    private OrderDto orderDto;
 
 }
