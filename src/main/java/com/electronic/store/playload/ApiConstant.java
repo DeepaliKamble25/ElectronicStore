@@ -27,4 +27,10 @@ public class ApiConstant {
 
     public static String CSTEGORY_NOT_FOUND="Category not found  !!!";
     public static String COVER_IMAGE_UPLOADED="Cover Image uploaded successfully  !!!";
+
+    public static String CARTITEMS_NOT_FOUND="CartItem not found !!!";
+
+    public static String Bad_ApiRequest_Quantity="Requested quantity is not valid !!!";
+    public static String CART_NOT_FOUND="Cart not found for given user!!!";
+
 }
