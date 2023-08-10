@@ -32,5 +32,7 @@ public class ApiConstant {
 
     public static String Bad_ApiRequest_Quantity="Requested quantity is not valid !!!";
     public static String CART_NOT_FOUND="Cart not found for given user!!!";
+    public static String Item_REMOVED="Item is removed from cart !!!";
+    public static String ALLItem_REMOVED="Now cart is blanks  and All Item is removed from cart !!!";
 
 }
