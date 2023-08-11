@@ -49,6 +49,8 @@ public class UserServiceImpl implements UserService {
         logger.info("Initiating request to saveUser");
         String userId = UUID.randomUUID().toString();
         userDto.setUserId(userId);
+        String name = userDto.getName();
+        userDto.setCreatedBy(name);
         User user = this.modelMapper.map(userDto, User.class);
 
 //        user.setUserId(userId);
@@ -62,6 +64,7 @@ public class UserServiceImpl implements UserService {
         logger.info("Initiating request to updateUser by findById method: {}",userId);
         User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(ApiConstant.User_Not_Found + userId));
         user.setName(userDto.getName());
+        user.setUpdatedBy(userDto.getName());
         user.setAbout(userDto.getAbout());
         user.setImage(userDto.getImage());
         user.setGender(userDto.getGender());
