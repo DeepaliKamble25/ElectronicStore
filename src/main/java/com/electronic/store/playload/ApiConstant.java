@@ -35,4 +35,8 @@ public class ApiConstant {
     public static String Item_REMOVED="Item is removed from cart !!!";
     public static String ALLItem_REMOVED="Now cart is blanks  and All Item is removed from cart !!!";
 
+    public static String CART_ITEMS_NULL="Invalid number of items in cart !!!";
+
+    public static String Order_NOT_FOUND="Order not found !!!";
+
 }
