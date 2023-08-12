@@ -1,5 +1,6 @@
 package com.electronic.store.service;
 
+import com.electronic.store.dto.CreateOrderRequest;
 import com.electronic.store.dto.OrderDto;
 import com.electronic.store.playload.PageableResponse;
 
@@ -9,7 +10,7 @@ public interface OrderService {
 
 
     //create
-    OrderDto createOrder(OrderDto orderDto, String userId);
+    OrderDto createOrder(CreateOrderRequest orderDto);
 
     //remove
     void removeOrder(String orderId);
