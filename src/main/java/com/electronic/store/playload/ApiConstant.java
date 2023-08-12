@@ -39,4 +39,6 @@ public class ApiConstant {
 
     public static String Order_NOT_FOUND="Order not found !!!";
 
+    public static String Order_DELETED="Order Deleted Successfully !!!";
+
 }
