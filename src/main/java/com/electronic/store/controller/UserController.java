@@ -1,12 +1,15 @@
 package com.electronic.store.controller;
 
+import com.electronic.store.dto.OrderDto;
 import com.electronic.store.dto.UserDto;
 import com.electronic.store.playload.ApiConstant;
 import com.electronic.store.playload.ApiResponse;
 import com.electronic.store.playload.ImageResponse;
 import com.electronic.store.playload.PageableResponse;
 import com.electronic.store.service.FileService;
+import com.electronic.store.service.OrderService;
 import com.electronic.store.service.UserService;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -34,6 +38,9 @@ public class UserController {
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private FileService fileService;
@@ -49,6 +56,7 @@ public class UserController {
      * @param user
      * @return userDto object
      */
+
     @PostMapping("/save")
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user) {
         logger.info("Initiating request to createUser");
@@ -215,6 +223,11 @@ public class UserController {
          logger.info("Completing  to serveUserImage : {} ",userId);
      }
 
+    @GetMapping("/{userId}/order")
+    public ResponseEntity<List<OrderDto>> getOrdersOfUser(String userId){
+        List<OrderDto> ordersOfUser = this.orderService.getOrdersOfUser(userId);
 
+     return new ResponseEntity<>(ordersOfUser,HttpStatus.OK);
+    }
 
 }
