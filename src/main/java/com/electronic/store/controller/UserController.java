@@ -40,9 +40,6 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private OrderService orderService;
-
-    @Autowired
     private FileService fileService;
 
     @Value("${user.profile.image.path}")
@@ -223,11 +220,6 @@ public class UserController {
          logger.info("Completing  to serveUserImage : {} ",userId);
      }
 
-    @GetMapping("/{userId}/order")
-    public ResponseEntity<List<OrderDto>> getOrdersOfUser(String userId){
-        List<OrderDto> ordersOfUser = this.orderService.getOrdersOfUser(userId);
 
-     return new ResponseEntity<>(ordersOfUser,HttpStatus.OK);
-    }
 
 }

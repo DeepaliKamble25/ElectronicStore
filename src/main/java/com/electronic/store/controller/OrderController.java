@@ -27,17 +27,20 @@ public class OrderController {
 
     @PostMapping("/save")
     public ResponseEntity<OrderDto> createOrder(@RequestBody CreateOrderRequest orderRequest) {
+        logger.info("Entering the request for save OrderDto data" );
+
         OrderDto order = this.orderService.createOrder(orderRequest);
+        logger.info("Entering the request for save OrderDto data" );
         return new ResponseEntity<>(order, HttpStatus.CREATED);
 
     }
 
     @DeleteMapping("/{orderId}")
     public ResponseEntity<ApiResponse> removeOrder(@PathVariable String orderId) {
-
+        logger.info("Entering the request for remove/delete OrderDto {} :",orderId );
         this.orderService.removeOrder(orderId);
         ApiResponse response = ApiResponse.builder().message(ApiConstant.Order_DELETED).success(true).status(HttpStatus.OK).build();
-
+        logger.info("Completed the request for remove/delete OrderDto {} :",orderId );
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }

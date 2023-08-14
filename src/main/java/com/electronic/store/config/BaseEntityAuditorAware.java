@@ -7,7 +7,7 @@ import org.springframework.data.domain.AuditorAware;
 
 import java.util.Optional;
 
-public class BaseEntityAuditorAware implements AuditorAware<String> {
+public abstract class BaseEntityAuditorAware implements AuditorAware<String> {
     /**
      * Returns the current auditor of the application.
      *

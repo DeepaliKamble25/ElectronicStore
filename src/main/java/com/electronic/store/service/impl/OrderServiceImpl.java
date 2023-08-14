@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto createOrder(CreateOrderRequest orderDto) {
-        logger.info("Initialize request for get createOrder");
+        logger.info("Initialize request for save/createOrder OrderDto data ");
         String userId = orderDto.getUserId();
         String cardId = orderDto.getCardId();
 
@@ -98,6 +98,7 @@ public class OrderServiceImpl implements OrderService {
         cart.getItems().clear();
         cartRepository.save(cart);
         Order savedOrder = orderRepository.save(order);
+        logger.info("Completed the request for save OrderDto data" );
         return this.modelMapper.map(savedOrder,OrderDto.class);
 
     }
@@ -106,6 +107,7 @@ public class OrderServiceImpl implements OrderService {
     public void removeOrder(String orderId) {
         logger.info("Initialize request deleted order : {}",orderId);
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException(ApiConstant.Order_NOT_FOUND));
+
         orderRepository.delete(order);
     }
 
@@ -139,7 +141,7 @@ public class OrderServiceImpl implements OrderService {
 
         PageableResponse<OrderDto> response = Helper.getPageableResponse(page, OrderDto.class);
 
-        logger.info("Completing request to get Allorder");
+        logger.info("Completed request to get Allorder");
         return response;
 
     }
