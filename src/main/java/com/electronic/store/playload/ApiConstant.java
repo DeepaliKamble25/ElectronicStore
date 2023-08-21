@@ -1,5 +1,7 @@
 package com.electronic.store.playload;
 
+import java.util.Set;
+
 public class ApiConstant {
 
     public static String User_Not_Found="User not found for given !!!";
@@ -41,4 +43,6 @@ public class ApiConstant {
 
     public static String Order_DELETED="Order Deleted Successfully !!!";
     public static String USER_ORDER_NULL="User order nothing !!!";
+    public static String Role_NULL="Role was not available !!!";
+
 }
