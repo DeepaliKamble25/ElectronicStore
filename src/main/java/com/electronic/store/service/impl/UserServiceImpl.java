@@ -3,9 +3,11 @@ package com.electronic.store.service.impl;
 import com.electronic.store.dto.UserDto;
 import com.electronic.store.exception.UserNotFoundException;
 import com.electronic.store.helper.Helper;
+import com.electronic.store.model.Role;
 import com.electronic.store.model.User;
 import com.electronic.store.playload.ApiConstant;
 import com.electronic.store.playload.PageableResponse;
+import com.electronic.store.repository.RoleRepository;
 import com.electronic.store.repository.UserRepository;
 import com.electronic.store.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -35,13 +37,19 @@ public class UserServiceImpl implements UserService {
 
     @Value("${user.profile.image.path}")
     private String imagePath;
+
+
     @Autowired
     private ModelMapper modelMapper;
 
+
+
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private RoleRepository roleRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
 
     @Override
     public UserDto createUser(UserDto userDto) {
@@ -51,10 +59,16 @@ public class UserServiceImpl implements UserService {
         userDto.setUserId(userId);
         String name = userDto.getName();
         userDto.setCreatedBy(name);
+
         User user = this.modelMapper.map(userDto, User.class);
+        Role role = this.roleRepository.findById(ApiConstant.NORMAL_USER).orElseThrow(()->new RuntimeException("Role not found !"));
+
+        user.getRoles().add(role);
+
 
 //        user.setUserId(userId);
         User saveUser = userRepository.save(user);
+
         logger.info("Completing request to saved");
         return this.modelMapper.map(saveUser, UserDto.class);
     }
