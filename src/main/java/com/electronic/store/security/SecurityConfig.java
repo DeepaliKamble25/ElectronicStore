@@ -1,22 +1,37 @@
 package com.electronic.store.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
+    private static Logger logger= LoggerFactory.getLogger(SecurityConfig.class);
     @Autowired
     private UserDetailsService userDetailsService;
-   /* @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception {
 
-	/*	http.authorizeHttpRequests()
+    @Autowired
+    private JwtAuthenticationEntryPoint authenticationEntryPoint;
+
+    @Autowired
+    private JwtAuthenticationFilter authenticationFilter;
+
+
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+     /*  	http.authorizeRequests()
 		.anyRequest()
 		.authenticated()
 		.and()
@@ -29,19 +44,25 @@ public class SecurityConfig {
 		.logout()
 		.logoutUrl("/logout");*/
 
-    /*    http
+        http
                 .csrf()
                 .disable()
                 .cors()
                 .disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/login")
-                .permitAll()
+                .authorizeRequests()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .
-*/
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+
+            http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
 
@@ -56,6 +77,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
 
     }
+
 
 
 }
